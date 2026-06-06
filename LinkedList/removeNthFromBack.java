@@ -1,0 +1,99 @@
+
+public class removeNthFromBack {
+
+    static class Node {
+
+        int val;
+        Node next;
+
+        Node(int val) {
+            this.val = val;
+            this.next = null;
+        }
+    };
+
+    static Node insertAtEnd(Node head, int val) {
+        if (head == null) {
+            return new Node(val);
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = new Node(val);
+        return head;
+    }
+
+    static void print(Node head) {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.val + " ");
+            temp = temp.next;
+        }
+    }
+
+    public static Node removeNthFromEnd(Node head, int n) {
+        Node fast = head;
+        int i = 0;
+        while (i < n) {
+            fast = fast.next;
+            i++;
+        }
+        if (fast == null) {
+            return head.next;
+        }
+        Node slow = head;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
+
+    public static void main(String[] args) {
+        Node head = new Node(5);
+        head = insertAtEnd(head, 6);
+        head = insertAtEnd(head, 7);
+        head = insertAtEnd(head, 8);
+        head = insertAtEnd(head, 9);
+        head = insertAtEnd(head, 10);
+        print(head);
+        System.out.println();
+        Node newhead = removeNthFromEnd(head, 2);
+        print(newhead);
+    }
+}/*19. Remove Nth Node From End of List
+Medium
+Topics
+premium lock icon
+Companies
+Hint
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+Example 2:
+
+Input: head = [1], n = 1
+Output: []
+Example 3:
+
+Input: head = [1,2], n = 1
+Output: [1]
+ 
+
+Constraints:
+
+The number of nodes in the list is sz.
+1 <= sz <= 30
+0 <= Node.val <= 100
+1 <= n <= sz
+ 
+
+Follow up: Could you do this in one pass? */
